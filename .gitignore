@@ -105,11 +105,6 @@ hs_err_pid*
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
-# Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
-
-
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
