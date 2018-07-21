@@ -13,7 +13,11 @@
 
 ## 兼容相关
 
-操作系统：目前已在 Win7、Win10、Redhat6上测试过，shell 脚本与 bat 脚本均可用。后续可能支持 Solaris 与 AIX。
-传输协议：目前已 TCP，后续可能支持 HTTP，HTTPS。
-报文格式：目前已 XML，后续可能支持银联ISO8583，结构体，分隔符，JSON，WebService。
-报文匹配：目前支持单匹配码，后续会支持双匹配码来匹配一笔响应报文。
++ 操作系统：目前已在 Win7、Win10、Redhat6上测试过，shell 脚本与 bat 脚本均可用。后续可能支持 Solaris 与 AIX。
+
++ 传输协议：目前已 TCP，后续可能支持 HTTP，HTTPS。
+
++ 报文格式：目前已 XML，后续可能支持银联ISO8583，结构体，分隔符，JSON，WebService。
+
++ 报文匹配：目前支持单匹配码，后续会支持双匹配码来匹配一笔响应报文。
+
