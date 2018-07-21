@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class GetXmlRep {
     private static Map<String, String> reps = null;
-    private static long sleepTime = Config.sleepTime;
+    private static long delay = Config.delay;
 
     public GetXmlRep() {
         if (reps == null) {
@@ -21,8 +21,8 @@ public class GetXmlRep {
         String txnid = XMLTools.readStringXml(req, key);
         rep = reps.get(txnid);
         try {
-            Thread.sleep(sleepTime);
-            LogUtil.i("模拟超时:" + sleepTime +"秒");
+            Thread.sleep(delay);
+            LogUtil.i("模拟超时:" + delay +"秒");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

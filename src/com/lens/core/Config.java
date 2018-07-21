@@ -14,7 +14,7 @@ public class Config {
     public static String rspPath = "rspPath111";
     public static int autoHeaderLen = 1;
     public static int timeOut = 999;
-    public static int sleepTime = 111;
+    public static int delay = 111;
     public static int poolSize = 222;
     public static boolean debugMode;
 
@@ -46,7 +46,7 @@ public class Config {
         rspPath = pps.getProperty("rspPath");
         port = Integer.parseInt(pps.getProperty("port", "23333").trim());
         timeOut = Integer.parseInt(pps.getProperty("timeOut", "60000").trim());
-        sleepTime = Integer.parseInt(pps.getProperty("sleepTime", "0").trim());
+        delay = Integer.parseInt(pps.getProperty("delay", "0").trim());
         poolSize = Integer.parseInt(pps.getProperty("poolSize", "10").trim());
         debugMode = Boolean.getBoolean(pps.getProperty("debugMode", "FALSE"));
     }
