@@ -11,11 +11,6 @@ import java.util.Map;
 
 // TODO 优化报文响应机制
 
- /**
-  * 报文响应机制
-  响应报文直接加载到内存中，避免每次匹配响应报文都从磁盘读写。
-  当响应报文有新增或修改时，通过WatchTask监控文件改动
-  */
 public class XmlFiles {
     private Map<String, String> reps = new HashMap<>();
     private String filePath = "";
