@@ -1,6 +1,5 @@
 package com.lens.core;
 
-import com.lens.util.ConfigUtil;
 import com.lens.util.LogUtil;
 
 import java.io.File;
@@ -10,6 +9,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO 优化报文响应机制
+
+ /**
+  * 报文响应机制
+  响应报文直接加载到内存中，避免每次匹配响应报文都从磁盘读写。
+  当响应报文有新增或修改时，通过WatchTask监控文件改动
+  */
 public class XmlFiles {
     private Map<String, String> reps = new HashMap<>();
     private String filePath = "";
@@ -19,14 +25,14 @@ public class XmlFiles {
 
     public Map<String, String> getFileList() {
         LogUtil.i("初始化reps");
-        try {
-//            filePath = new ConfigUtil("D:/Busi/AgentHost/config.ini").getValue("rspPath");
-            filePath = new ConfigUtil("./config.ini").getValue("rspPath");
-            LogUtil.i("响应报文文件路径:" + filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        File dir = new File(filePath);
+//        try {
+//            filePath = new ConfigUtill("./config.ini").getValue("rspPath");
+//            LogUtil.i("响应报文文件路径:" + filePath);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        File dir = new File(filePath);
+        File dir = new File(Config.rspPath);
         File[] files = dir.listFiles(); // 该文件目录下文件全部放入数组
         if (files.length == 0)
             return reps;
@@ -46,17 +52,17 @@ public class XmlFiles {
         File file = new File(fileName);
         Long fileLen = file.length();
 
-        StringBuilder fileLen6 = new StringBuilder(fileLen.toString());
-        for(int i=fileLen6.length();i<6;i++){
-            fileLen6.insert(0, "0");
+        // 将计算出的报文长度前补0，凑成指定长度的报文头长度值，用于在发送响应前拼接到报文正文前。
+        StringBuilder sbFileLen = new StringBuilder(fileLen.toString());
+        for(int i=sbFileLen.length();i<6;i++){
+            sbFileLen.insert(0, "0");
         }
-        LogUtil.i("文件名是: " + fileName + " 文件字节数: " + fileLen6.toString());
+        LogUtil.i("文件名是: " + fileName + " 文件字节数: " + sbFileLen.toString());
 
-//        byte[] fileHeader = fileLen6.toString().getBytes();
+//        byte[] fileHeader = sbFileLen.toString().getBytes();
         byte[] filecontent = new byte[fileLen.intValue()];
         try {
             FileInputStream in = new FileInputStream(file);
-//            in.read(fileHeader);
             in.read(filecontent);
             in.close();
         } catch (FileNotFoundException e) {

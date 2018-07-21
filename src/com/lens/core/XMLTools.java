@@ -11,7 +11,6 @@ public class XMLTools {
     public static String readStringXml(String xml, String iKey) {
         Document doc = null;
         String nKey = "";
-//        String fKey = "";//父key
         String value = "";
         try {
             // 下面的是通过解析xml字符串的
