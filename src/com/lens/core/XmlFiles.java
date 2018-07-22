@@ -15,12 +15,6 @@ public class XmlFiles {
 
     private static Map<String, String> reps = new HashMap<>();
 
-    // 测试用
-//    public static void main(String[] args){
-//        Config.rspPath = "D:/Busi/AgentHost/rsp";
-//        getFileList();
-//    }
-
     public static Map<String, String> getFileList() {
         LogUtil.i("初始化reps");
         // TODO rsp初始化提前

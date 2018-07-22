@@ -24,7 +24,7 @@ public class Config {
 
     public static void init() {
 
-        String cfgPath2 = "D:/Busi/AgentHost/config.ini";
+        String cfgPath2 = "D:/Prog/Workspace/AgentHost/cfg/config.ini";
         String cfgPath = "./config.ini";
 
         Properties pps = new Properties();
