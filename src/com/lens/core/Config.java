@@ -15,11 +15,11 @@ public class Config {
     // 配置文件 config 相关
     public static int port;
     public static String rspPath;
-    public static int autoHeaderLen;
     public static int timeOut;
     public static int delay;
     public static int poolSize;
     public static boolean debugMode;
+    public static int reqLen;
     public static int rspLen;
 
     public static void init() {
@@ -53,7 +53,9 @@ public class Config {
         delay = Integer.parseInt(pps.getProperty("delay", "0").trim());
         poolSize = Integer.parseInt(pps.getProperty("poolSize", "10").trim());
         debugMode = Boolean.getBoolean(pps.getProperty("debugMode", "FALSE"));
+        reqLen = Integer.parseInt(pps.getProperty("reqLen", "6").trim());
         rspLen = Integer.parseInt(pps.getProperty("rspLen", "6").trim());
+
 
     }
 

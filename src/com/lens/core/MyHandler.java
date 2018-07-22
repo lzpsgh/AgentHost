@@ -28,8 +28,7 @@ public class MyHandler implements Runnable {
             String req = "";
             String rsp = "";
             int len = br.read(cb);
-            //TODO 索引长度不能写死6位
-            req = new String(cb.array()).substring(6, len);
+            req = new String(cb.array()).substring(Config.reqLen, len);
             LogUtil.i("请求报文req:" + req);
             //原始方案
             rsp = getXmlRep.getRep(req);
