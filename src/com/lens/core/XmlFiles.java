@@ -20,11 +20,15 @@ public class XmlFiles {
         // todo rsp初始化提前
         File dir = new File(Config.rspPath);
         // todo 目录不存在时自动创建
+        if(!dir.exists()){
+            LogUtil.e("rsp directory not found");
+            System.exit(0);
+        }
         LogUtil.i("rsp path: " + Config.rspPath);
         File[] files = dir.listFiles(); // 该文件目录下文件全部放入数组
         if (files.length == 0){
-            LogUtil.i("No rsp files found");
-            return reps;
+            LogUtil.i("rsp file not found");
+            System.exit(0);
         }
         for (int i = 0; i < files.length; i++) {
             String fileName = files[i].getName();
