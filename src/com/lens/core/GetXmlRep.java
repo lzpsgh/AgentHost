@@ -23,7 +23,7 @@ public class GetXmlRep {
         rep = reps.get(txnid);
         try {
             Thread.sleep(delay);
-            LogUtil.i("模拟超时:" + delay +"秒");
+            LogUtil.i("模拟超时:" + delay +"毫秒");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

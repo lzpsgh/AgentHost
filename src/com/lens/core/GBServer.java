@@ -16,7 +16,7 @@ public class GBServer {
 
     public GBServer() {
         try{
-            // 加载并读取根目录下的配置文件 config.ini
+            // 加载并读取根目录下的config配置文件
             initCfg();
             // 监听端口和初始化线程池
             initSocketAndTPool();

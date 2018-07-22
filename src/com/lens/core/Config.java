@@ -12,7 +12,7 @@ public class Config {
     //    public static String channel ="channel11";
     public static String reservesZeroStr = "000000000000000000000000000000";
 
-    // 配置文件config.ini 相关
+    // 配置文件 config 相关
     public static int port;
     public static String rspPath;
     public static int autoHeaderLen;

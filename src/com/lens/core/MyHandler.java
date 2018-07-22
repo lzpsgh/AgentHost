@@ -18,22 +18,12 @@ public class MyHandler implements Runnable {
 //        msgHandler = new MsgHandler();
     }
 
-    private PrintWriter getWriter(Socket socket) throws IOException {
-        OutputStream socketOut = socket.getOutputStream();
-        return new PrintWriter(socketOut, true);
-    }
-
-    private BufferedReader getReader(Socket socket) throws IOException {
-        InputStream socketIn = socket.getInputStream();
-        return new BufferedReader(new InputStreamReader(socketIn));
-    }
-
     @Override
     public void run() {
         try {
             LogUtil.i("建立连接，" + socket.getInetAddress() + ":" + socket.getPort());
-            BufferedReader br = getReader(socket);
-            PrintWriter pw = getWriter(socket);
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter pw = new PrintWriter(socket.getOutputStream(),true);
             CharBuffer cb = CharBuffer.allocate(1024 * 5);
             String req = "";
             String rsp = "";
