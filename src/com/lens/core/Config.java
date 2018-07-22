@@ -10,13 +10,17 @@ import java.util.Properties;
 public class Config {
 
     //    public static String channel ="channel11";
-    public static int port = 666;
-    public static String rspPath = "rspPath111";
-    public static int autoHeaderLen = 1;
-    public static int timeOut = 999;
-    public static int delay = 111;
-    public static int poolSize = 222;
+    public static String reservesZeroStr = "000000000000000000000000000000";
+
+    // 配置文件config.ini 相关
+    public static int port;
+    public static String rspPath;
+    public static int autoHeaderLen;
+    public static int timeOut;
+    public static int delay;
+    public static int poolSize;
     public static boolean debugMode;
+    public static int rspLen;
 
     public static void init() {
 
@@ -49,6 +53,8 @@ public class Config {
         delay = Integer.parseInt(pps.getProperty("delay", "0").trim());
         poolSize = Integer.parseInt(pps.getProperty("poolSize", "10").trim());
         debugMode = Boolean.getBoolean(pps.getProperty("debugMode", "FALSE"));
+        rspLen = Integer.parseInt(pps.getProperty("rspLen", "6").trim());
+
     }
 
 

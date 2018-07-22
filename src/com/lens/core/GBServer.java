@@ -39,10 +39,10 @@ public class GBServer {
 
     protected void launch() {
 
+        LogUtil.i("GBserver launch");
         while (true) {
             Socket socket;
             //启动并发线程
-            LogUtil.i("GBserver launch");
             try {
                 //接收客户连接,只要客户进行了连接,就会触发accept();从而建立连接
                 socket = serverSocket.accept();

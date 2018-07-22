@@ -10,7 +10,8 @@ public class GetXmlRep {
 
     public GetXmlRep() {
         if (reps == null) {
-            reps = new XmlFiles().getFileList();
+            // 可以改成静态调用
+            reps = XmlFiles.getFileList();
         }
     }
 

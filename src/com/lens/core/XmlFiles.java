@@ -12,50 +12,66 @@ import java.util.Map;
 // TODO 优化报文响应机制
 
 public class XmlFiles {
-    private Map<String, String> reps = new HashMap<>();
-    private String filePath = "";
 
-    public XmlFiles() {
-    }
+    private static Map<String, String> reps = new HashMap<>();
 
-    public Map<String, String> getFileList() {
+    // 测试用
+//    public static void main(String[] args){
+//        Config.rspPath = "D:/Busi/AgentHost/rsp";
+//        getFileList();
+//    }
+
+    public static Map<String, String> getFileList() {
         LogUtil.i("初始化reps");
-//        try {
-//            filePath = new ConfigUtill("./config.ini").getValue("rspPath");
-//            LogUtil.i("响应报文文件路径:" + filePath);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        File dir = new File(filePath);
+        // TODO rsp初始化提前
         File dir = new File(Config.rspPath);
+        LogUtil.i("rsp path: " + Config.rspPath);
         File[] files = dir.listFiles(); // 该文件目录下文件全部放入数组
-        if (files.length == 0)
+        if (files.length == 0){
+            LogUtil.i("No rsp files found");
             return reps;
+        }
         for (int i = 0; i < files.length; i++) {
             String fileName = files[i].getName();
-            if (fileName.endsWith("xml")) { // 判断文件名是否以.xml结尾
-                String strFileName = files[i].getAbsolutePath();
-                getFile(strFileName);
-            } else {
+            if(!fileName.endsWith("xml")){
                 continue;
             }
+
+            // 获取每个文件的key
+            String filesMapKey = files[i].getName().split("\\.")[0];
+            LogUtil.d("每个文件存到内存中的key: " + filesMapKey);
+
+            // 获取每个文件的value
+            Long fileLen = files[i].length();//文件总字节数
+            byte[] filecontent = new byte[fileLen.intValue()];
+            try {
+                FileInputStream in = new FileInputStream(files[i]);
+                in.read(filecontent);
+                in.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //加载到reps中
+//            String filesMapKey = fileName.substring(fileName.lastIndexOf(File.separator) + 1, fileName.length() - 4);
+            reps.put(filesMapKey, new String(filecontent));
+//            LogUtil.i(reps.size()+"");
         }
+
         return reps;
     }
 
+    /*
+     *
+    Deprecated
     private void getFile(String fileName) {
         File file = new File(fileName);
-        Long fileLen = file.length();
+        Long fileLen = file.length();//文件总字节数
 
-        // 将计算出的报文长度前补0，凑成指定长度的报文头长度值，用于在发送响应前拼接到报文正文前。
-        StringBuilder sbFileLen = new StringBuilder(fileLen.toString());
-        for(int i=sbFileLen.length();i<6;i++){
-            sbFileLen.insert(0, "0");
-        }
-        LogUtil.i("文件名是: " + fileName + " 文件字节数: " + sbFileLen.toString());
-
-//        byte[] fileHeader = sbFileLen.toString().getBytes();
         byte[] filecontent = new byte[fileLen.intValue()];
+
         try {
             FileInputStream in = new FileInputStream(file);
             in.read(filecontent);
@@ -65,7 +81,9 @@ public class XmlFiles {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        reps.put(fileName.substring(fileName.lastIndexOf(File.separator) + 1, fileName.length() - 4), new String(filecontent));
+        String txnId = fileName.substring(fileName.lastIndexOf(File.separator) + 1, fileName.length() - 4);
+        reps.put(txnId, new String(filecontent));
     }
+    */
 
 }

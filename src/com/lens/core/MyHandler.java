@@ -9,7 +9,7 @@ import java.nio.CharBuffer;
 public class MyHandler implements Runnable {
     private Socket socket;
     private GetXmlRep getXmlRep;
-//    private MsgHandler msgHandler;
+    //    private MsgHandler msgHandler;
     private long sleepTime;
 
     public MyHandler(Socket socket) {
@@ -44,18 +44,18 @@ public class MyHandler implements Runnable {
             //原始方案
             rsp = getXmlRep.getRep(req);
 
-            StringBuilder sbFileLen6 = new StringBuilder(String.valueOf(rsp.getBytes().length));
-            LogUtil.i(sbFileLen6+"");
-            for(int i=sbFileLen6.length();i<6;i++){
-                sbFileLen6.insert(0, "0");
+            // 将计算出的报文长度前补0，凑成指定长度的报文头长度值，用于在发送响应前拼接到报文正文前。
+            String actualRspLen = String.valueOf(rsp.getBytes().length); // "768"
+            if (Config.rspLen < actualRspLen.length()) {
+                LogUtil.e("实际报文长度大于 rspLen 参数");
+            } else {
+                String plusRspLen = Config.reservesZeroStr.substring(0, Config.rspLen - actualRspLen.length()); // "000"
+                String totalRsp = plusRspLen + actualRspLen + rsp;
+                LogUtil.i("实际返回响应报文: \r\n" + totalRsp);
+                pw.write(totalRsp);
+                pw.flush();
             }
-            String fileLen6 = sbFileLen6.toString();
 
-            LogUtil.i("6位头长度: " + fileLen6);
-            LogUtil.i("组装响应报文: \r\n" + fileLen6+rsp);
-
-            pw.write(fileLen6+rsp);
-            pw.flush();
             br.close();
             pw.close();
         } catch (IOException e) {
