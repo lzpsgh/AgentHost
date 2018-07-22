@@ -17,7 +17,7 @@ public class GetXmlRep {
 
     public String getRep(String req) {
         String rep ;
-        // TODO 双匹配码支持
+        // todo 双匹配码支持
         String key = "Message.Sys_Head.TRAN_CODE";
         String txnid = XMLTools.readStringXml(req, key);
         rep = reps.get(txnid);

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO 优化报文响应机制
+// todo 优化报文响应机制
 
 public class XmlFiles {
 
@@ -17,8 +17,9 @@ public class XmlFiles {
 
     public static Map<String, String> getFileList() {
         LogUtil.i("初始化reps");
-        // TODO rsp初始化提前
+        // todo rsp初始化提前
         File dir = new File(Config.rspPath);
+        // todo 目录不存在时自动创建
         LogUtil.i("rsp path: " + Config.rspPath);
         File[] files = dir.listFiles(); // 该文件目录下文件全部放入数组
         if (files.length == 0){
