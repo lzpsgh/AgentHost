@@ -47,7 +47,7 @@ public class Config {
             e.printStackTrace();
         }
 
-        rspPath = pps.getProperty("rspPath");
+        rspPath = pps.getProperty("rspPath","./rsp").trim();
         port = Integer.parseInt(pps.getProperty("port", "23333").trim());
         timeOut = Integer.parseInt(pps.getProperty("timeOut", "60000").trim());
         delay = Integer.parseInt(pps.getProperty("delay", "0").trim());
