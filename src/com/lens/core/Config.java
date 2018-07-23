@@ -18,9 +18,10 @@ public class Config {
     public static int timeOut;
     public static int delay;
     public static int poolSize;
-    public static boolean debugMode;
     public static int reqLen;
     public static int rspLen;
+    public static boolean debugMode;
+    public static String matchCode;
 
     public static void init() {
 
@@ -46,15 +47,16 @@ public class Config {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        rspPath = pps.getProperty("rspPath","./rsp").trim();
+        poolSize = Integer.parseInt(pps.getProperty("poolSize", "10").trim());
         port = Integer.parseInt(pps.getProperty("port", "23333").trim());
         timeOut = Integer.parseInt(pps.getProperty("timeOut", "60000").trim());
         delay = Integer.parseInt(pps.getProperty("delay", "0").trim());
-        poolSize = Integer.parseInt(pps.getProperty("poolSize", "10").trim());
-        debugMode = Boolean.getBoolean(pps.getProperty("debugMode", "FALSE"));
+        rspPath = pps.getProperty("rspPath","./rsp").trim();
         reqLen = Integer.parseInt(pps.getProperty("reqLen", "6").trim());
         rspLen = Integer.parseInt(pps.getProperty("rspLen", "6").trim());
+        debugMode = Boolean.getBoolean(pps.getProperty("debugMode", "FALSE"));
+        matchCode = pps.getProperty("matchCode","Message.Sys_Head.TRAN_CODE").trim();
+
 
 
     }
