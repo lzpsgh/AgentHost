@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class GetXmlRep {
     private static Map<String, String> reps = null;
-    private static long delay = Config.delay;
 
     public GetXmlRep() {
         if (reps == null) {
@@ -21,13 +20,14 @@ public class GetXmlRep {
         String key = "Message.Sys_Head.TRAN_CODE";
         String txnid = XMLTools.readStringXml(req, key);
         rep = reps.get(txnid);
-        try {
-            Thread.sleep(delay);
-            LogUtil.i("模拟超时:" + delay +"毫秒");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(Config.delay>0){
+            try {
+                Thread.sleep(Config.delay);
+                LogUtil.i("模拟超时:" + Config.delay +"毫秒");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
         return rep;
     }
 
