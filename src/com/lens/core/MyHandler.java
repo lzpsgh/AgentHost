@@ -39,7 +39,7 @@ public class MyHandler implements Runnable {
                 throw new Exception();
             }
             req = new String(cb.array()).substring(Config.reqLen, len);
-            LogUtil.i("请求报文req:" + req);
+            LogUtil.i("请求报文:\r\n" + req + "\r\n");
             //原始方案
             rsp = getXmlRep.getRep(req);
             // 将计算出的报文长度前补0，凑成指定长度的报文头长度值，用于在发送响应前拼接到报文正文前。
@@ -50,7 +50,7 @@ public class MyHandler implements Runnable {
             }
             String plusRspLen = Config.reservesZeroStr.substring(0, Config.rspLen - actualRspLen.length()); // "000"
             String totalRsp = plusRspLen + actualRspLen + rsp;
-            LogUtil.i("实际返回响应报文: \r\n" + totalRsp);
+            LogUtil.i("响应报文:\r\n" + totalRsp);
             pw.write(totalRsp);
             pw.flush();
         } catch (IOException e) {
