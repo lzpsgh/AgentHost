@@ -24,17 +24,15 @@ public class Config {
     public static int reqLen;
     public static int rspLen;
     public static boolean debugMode;
+    public static int logLevel;
     public static String matchCode;
 
-
     public static void initCfg() {
-        loadPara();
-        loadRsp();
+        loadPara(PropertiesUtil.getProp(cfgPath, cfgPath2));
+        loadRsp(Config.rspPath,Config.needWatch);
     }
 
-    private static void loadPara() {
-        LogUtil.i("加载配置参数");
-        Properties pps = PropertiesUtil.getProp(cfgPath, cfgPath2);
+    private static void loadPara(Properties pps) {
         poolSize = Integer.parseInt(pps.getProperty("poolSize", "10").trim());
         port = Integer.parseInt(pps.getProperty("port", "23333").trim());
         timeOut = Integer.parseInt(pps.getProperty("timeOut", "60000").trim());
@@ -44,19 +42,11 @@ public class Config {
         reqLen = Integer.parseInt(pps.getProperty("reqLen", "6").trim());
         rspLen = Integer.parseInt(pps.getProperty("rspLen", "6").trim());
         debugMode = pps.getProperty("debugMode", "0").equals("1") ? Boolean.TRUE : Boolean.FALSE;
+        logLevel = Integer.parseInt(pps.getProperty("logLevel", "2").trim());
         matchCode = pps.getProperty("matchCode", "Message.Sys_Head.TRAN_CODE").trim();
     }
 
-    private static void loadRsp() {
-        loadRsp(rspPath);
-    }
-
-    private static void loadRsp(String filePath) {
-        loadRsp(filePath, true);
-    }
-
     private static void loadRsp(String filePath, Boolean needWatch) {
-
         File file = new File(filePath);
         if (!(file.exists() && file.isDirectory())) {
             LogUtil.e("响应报文目录未找到");
@@ -64,12 +54,12 @@ public class Config {
         }
         if (needWatch) {
             WatchServiceHandler watchServiceHandler = new WatchServiceHandler();
-            watchServiceHandler.watch(rspPath);
+            watchServiceHandler.watch(filePath);
+            LogUtil.i("注册目录事件监听器："+filePath);
             //absWatchServiceHandler.watch(rspPath2);
         }
-        LogUtil.i("定位并开始加载响应报文");
-
-
+        LogUtil.i("加载响应报文");
+        // TODO 预加载
     }
 
 }

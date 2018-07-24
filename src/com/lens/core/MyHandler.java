@@ -24,7 +24,7 @@ public class MyHandler implements Runnable {
     public void run() {
         BufferedReader br = null;
         PrintWriter pw = null;
-        LogUtil.i("建立连接，" + socket.getInetAddress() + ":" + socket.getPort());
+        LogUtil.i("建立连接，" + socket.getInetAddress() + ":" + socket.getPort() + "\r\n");
         try {
 
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));

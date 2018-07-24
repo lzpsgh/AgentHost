@@ -14,29 +14,35 @@ public class WatchServiceHandler {
     // 要监听事件的文件夹，目前只能监听1个
     public void watch(String path){
         this.filePath = path;
-        try {
-            watchService = FileSystems.getDefault().newWatchService();
-            Paths.get(filePath).register(watchService,
-                    StandardWatchEventKinds.ENTRY_CREATE,
-                    StandardWatchEventKinds.ENTRY_MODIFY,
-                    StandardWatchEventKinds.ENTRY_DELETE);
-            LogUtil.i("注册目录事件监听器："+filePath);
+        // new Thread( () -> { TO-DO } ).start();  // 改用Lambda
 
-            while ((key = watchService.take()) != null) {
-                for (WatchEvent<?> event : key.pollEvents()) {
-                    if(event.count() == 1){
-                        LogUtil.i(event.kind() + "---> " + event.context() );
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    watchService = FileSystems.getDefault().newWatchService();
+                    Paths.get(filePath).register(watchService,
+                            StandardWatchEventKinds.ENTRY_CREATE,
+                            StandardWatchEventKinds.ENTRY_MODIFY,
+                            StandardWatchEventKinds.ENTRY_DELETE);
+                    while ((key = watchService.take()) != null) {
+                        for (WatchEvent<?> event : key.pollEvents()) {
+                            if(event.count() == 1){
+                                LogUtil.i(event.kind() + "---> " + event.context() );
+                            }
+                        }
+                        if(!key.reset()){
+                            break;
+                        }
                     }
-                }
-                if(!key.reset()){
-                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        }).start();
+
     }
 
 

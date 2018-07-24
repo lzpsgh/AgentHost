@@ -7,7 +7,7 @@ public class LogUtil {
     static String className;
     static String methodName;
     static int lineNumber;
-    static final int LEVEL = 3;
+    static int LEVEL = Config.logLevel;
     static boolean debugMode = Config.debugMode;
 
     private LogUtil() {

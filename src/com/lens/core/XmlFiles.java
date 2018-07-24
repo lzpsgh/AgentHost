@@ -16,15 +16,13 @@ public class XmlFiles {
     private static Map<String, String> reps = new HashMap<>();
 
     public static Map<String, String> getFileList() {
-        LogUtil.i("初始化reps");
+        LogUtil.d("初始化reps");
         // todo rsp初始化提前
         File dir = new File(Config.rspPath);
-        // todo 目录不存在时自动创建
         if(!dir.exists()){
             LogUtil.e("rsp directory not found");
             System.exit(0);
         }
-        LogUtil.i("rsp path: " + Config.rspPath);
         File[] files = dir.listFiles(); // 该文件目录下文件全部放入数组
         if (files.length == 0){
             LogUtil.i("rsp file not found");

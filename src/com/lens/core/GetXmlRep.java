@@ -16,7 +16,6 @@ public class GetXmlRep {
 
     public String getRep(String req) {
         String rep ;
-        // todo 双匹配码支持
         String key = Config.matchCode;
         String txnid = XMLTools.readStringXml(req, key);
         rep = reps.get(txnid);
