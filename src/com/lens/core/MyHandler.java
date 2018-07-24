@@ -18,7 +18,6 @@ public class MyHandler implements Runnable {
     public MyHandler(Socket socket) {
         this.socket = socket;
         getXmlRep = new GetXmlRep();
-//        msgHandler = new MsgHandler();
     }
 
     @Override
