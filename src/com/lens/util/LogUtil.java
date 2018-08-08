@@ -7,11 +7,6 @@ public class LogUtil {
     static String className;
     static String methodName;
     static int lineNumber;
-    static int LEVEL = Config.logLevel;
-    static boolean debugMode = Config.debugMode;
-
-    private LogUtil() {
-    }
 
     private static void getRef(StackTraceElement[] stElements) {
         className = stElements[1].getFileName();
@@ -19,10 +14,18 @@ public class LogUtil {
         lineNumber = stElements[1].getLineNumber();
     }
 
-    public static void e(String message) {
-        if (LEVEL >= 1) {
+    public static void wtf(String message){
+        if (Config.debugMode) {
             getRef(new Throwable().getStackTrace());
-            if (debugMode) {
+            System.out.println(" 【" + className + "】【" + methodName + ":" + lineNumber + "】 " + message);
+        } else {
+            System.out.println(message);
+        }
+    }
+    public static void e(String message) {
+        if (Config.logLevel >= 1) {
+            if (Config.debugMode) {
+                getRef(new Throwable().getStackTrace());
                 System.out.println(" 【" + className + "】【" + methodName + ":" + lineNumber + "】 " + message);
             } else {
                 System.out.println(message);
@@ -31,9 +34,9 @@ public class LogUtil {
     }
 
     public static void i(String message) {
-        if (LEVEL >= 2) {
-            getRef(new Throwable().getStackTrace());
-            if (debugMode) {
+        if (Config.logLevel >= 2) {
+            if (Config.debugMode) {
+                getRef(new Throwable().getStackTrace());
                 System.out.println(" 【" + className + "】【" + methodName + ":" + lineNumber + "】 " + message);
             } else {
                 System.out.println(message);
@@ -42,9 +45,9 @@ public class LogUtil {
     }
 
     public static void d(String message) {
-        if (LEVEL >= 3) {
-            getRef(new Throwable().getStackTrace());
-            if (debugMode) {
+        if (Config.logLevel >= 3) {
+            if (Config.debugMode) {
+                getRef(new Throwable().getStackTrace());
                 System.out.println(" 【" + className + "】【" + methodName + ":" + lineNumber + "】 " + message);
             } else {
                 System.out.println(message);

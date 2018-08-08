@@ -42,7 +42,7 @@ public class Config {
         reqLen = Integer.parseInt(pps.getProperty("reqLen", "6").trim());
         rspLen = Integer.parseInt(pps.getProperty("rspLen", "6").trim());
         debugMode = pps.getProperty("debugMode", "0").equals("1") ? Boolean.TRUE : Boolean.FALSE;
-        logLevel = Integer.parseInt(pps.getProperty("logLevel", "2").trim());
+        logLevel = Integer.parseInt(pps.getProperty("logLevel").trim());
         matchCode = pps.getProperty("matchCode", "Message.Sys_Head.TRAN_CODE").trim();
     }
 

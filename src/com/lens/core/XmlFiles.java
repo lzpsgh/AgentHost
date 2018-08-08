@@ -50,37 +50,11 @@ public class XmlFiles {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             //加载到reps中
-//            String filesMapKey = fileName.substring(fileName.lastIndexOf(File.separator) + 1, fileName.length() - 4);
             reps.put(filesMapKey, new String(filecontent));
-//            LogUtil.i(reps.size()+"");
         }
 
         return reps;
     }
-
-    /*
-     *
-    Deprecated
-    private void getFile(String fileName) {
-        File file = new File(fileName);
-        Long fileLen = file.length();//文件总字节数
-
-        byte[] filecontent = new byte[fileLen.intValue()];
-
-        try {
-            FileInputStream in = new FileInputStream(file);
-            in.read(filecontent);
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String txnId = fileName.substring(fileName.lastIndexOf(File.separator) + 1, fileName.length() - 4);
-        reps.put(txnId, new String(filecontent));
-    }
-    */
 
 }

@@ -18,16 +18,15 @@ public class PropertiesUtil {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                LogUtil.i("首选路径未找到配置文件，尝试在候选路径下搜索");
+                LogUtil.wtf("首选路径未找到配置文件，尝试在候选路径下搜索");
                 file = new File(filePath2);
             }
             if (!file.exists()) {
-                LogUtil.i("未找到配置文件");
+                LogUtil.wtf("未找到配置文件");
                 System.exit(0);
             }
             pps.load(new FileInputStream(file));
-            LogUtil.i("加载配置文件:" + file.getCanonicalPath());
-
+            LogUtil.wtf("加载配置文件:" + file.getCanonicalPath());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
